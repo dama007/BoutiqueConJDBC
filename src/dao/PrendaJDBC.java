@@ -40,7 +40,7 @@ public class PrendaJDBC {
               rs.close();
               st.close();
           } catch (SQLException ex) {
-              System.out.println("Error en la consuta" + ex.getMessage());
+              System.out.println("Error en la consulta" + ex.getMessage());
           } finally {
               desconectar();
           }
@@ -80,9 +80,9 @@ public class PrendaJDBC {
     
     private void conectar() {
         try {
-            String url = "jdbc:mysql://localhost:3306/muylgualboutique";
+            String url = "jdbc:mysql://127.0.0.1:3306/muylgualboutique";
             String usr = "root";
-            String password = "jeveris";
+            String password = "tambacounda";
             conexion = DriverManager.getConnection(url, usr, password);
         } catch (SQLException ex) {
             System.out.println("Error al conectar" + ex.getMessage());

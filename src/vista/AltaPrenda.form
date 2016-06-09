@@ -56,7 +56,7 @@
                           <Component id="jComboBox2" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
                           <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="164" max="32767" attributes="0"/>
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -103,7 +103,7 @@
                   <Component id="jLabel7" min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="jSpinner3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="113" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -121,7 +121,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
       <BindingProperties>
-        <BindingProperty name="text" source="Form" sourcePath="${p.codigo}" target="jTextField1" targetPath="text" updateStrategy="0" immediately="false">
+        <BindingProperty name="text" source="Form" sourcePath="${prenda.codigo}" target="jTextField1" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
         </BindingProperty>
       </BindingProperties>
@@ -133,7 +133,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField2">
       <BindingProperties>
-        <BindingProperty name="text" source="Form" sourcePath="${p.descripcion}" target="jTextField2" targetPath="text" updateStrategy="0" immediately="false">
+        <BindingProperty name="text" source="Form" sourcePath="${prenda.descripcion}" target="jTextField2" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
         </BindingProperty>
       </BindingProperties>
@@ -167,7 +167,7 @@
         </Property>
       </Properties>
       <BindingProperties>
-        <BindingProperty name="selectedItem" source="Form" sourcePath="${p.talla}" target="jComboBox2" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+        <BindingProperty name="selectedItem" source="Form" sourcePath="${prenda.talla}" target="jComboBox2" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
       </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
@@ -182,7 +182,7 @@
         </Property>
       </Properties>
       <BindingProperties>
-        <BindingProperty name="value" source="Form" sourcePath="${p.pvp}" target="jSpinner1" targetPath="value" updateStrategy="0" immediately="false"/>
+        <BindingProperty name="value" source="Form" sourcePath="${prenda.pvp}" target="jSpinner1" targetPath="value" updateStrategy="0" immediately="false"/>
       </BindingProperties>
     </Component>
     <Component class="javax.swing.JSpinner" name="jSpinner2">
@@ -192,7 +192,7 @@
         </Property>
       </Properties>
       <BindingProperties>
-        <BindingProperty name="value" source="Form" sourcePath="${p.coste}" target="jSpinner2" targetPath="value" updateStrategy="0" immediately="false"/>
+        <BindingProperty name="value" source="Form" sourcePath="${prenda.coste}" target="jSpinner2" targetPath="value" updateStrategy="0" immediately="false"/>
       </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
@@ -207,7 +207,7 @@
         </Property>
       </Properties>
       <BindingProperties>
-        <BindingProperty name="value" source="Form" sourcePath="${p.stock}" target="jSpinner3" targetPath="value" updateStrategy="0" immediately="false"/>
+        <BindingProperty name="value" source="Form" sourcePath="${prenda.stock}" target="jSpinner3" targetPath="value" updateStrategy="0" immediately="false"/>
       </BindingProperties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
@@ -242,7 +242,7 @@
         </Property>
       </Properties>
       <BindingProperties>
-        <BindingProperty name="selectedItem" source="Form" sourcePath="${p.color}" target="jComboBox1" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
+        <BindingProperty name="selectedItem" source="Form" sourcePath="${prenda.color}" target="jComboBox1" targetPath="selectedItem" updateStrategy="0" immediately="false"/>
       </BindingProperties>
     </Component>
   </SubComponents>
