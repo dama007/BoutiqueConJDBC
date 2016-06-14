@@ -80,9 +80,9 @@ public class PrendaJDBC {
     
     private void conectar() {
         try {
-            String url = "jdbc:mysql://127.0.0.1:3306/muylgualboutique";
+            String url = "jdbc:mysql://localhost:3306/muylgualboutique";
             String usr = "root";
-            String password = "tambacounda";
+            String password = "jeveris";
             conexion = DriverManager.getConnection(url, usr, password);
         } catch (SQLException ex) {
             System.out.println("Error al conectar" + ex.getMessage());
@@ -101,11 +101,33 @@ public class PrendaJDBC {
     }
     
     
+    
+    public boolean borrarPrenda(String codigo) {
+        conectar();
+        if (conexion != null) {
+            
+            try {
+                String delete = "delete from prenda where codigo = '"+ codigo +"'";
+                Statement st = conexion.createStatement();
+                st.executeUpdate(delete);
+                st.close();
+                return true;
+            } catch (SQLException ex) {
+                System.out.println("Error al borrar: " + ex.getLocalizedMessage());
+            } finally {
+                desconectar();
+            }
+            
+        }
+        return false;
+    }
+    
+    
     public boolean existePrenda(String codigo) {
         conectar();
         if (conexion != null) {
             try {
-                String query = "select * from prenda wher codigo ='" + codigo + "'";
+                String query = "select * from prenda where codigo ='" + codigo + "'";
                 Statement st = conexion.createStatement();
                 ResultSet rs = st.executeQuery(query);
                 boolean existe = false;

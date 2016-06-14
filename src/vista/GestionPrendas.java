@@ -1,20 +1,27 @@
-
 package vista;
 
 import dao.PrendaJDBC;
+import javax.swing.JOptionPane;
 import modelo.ListaPrendas;
+import modelo.Prenda;
 
 /**
  *
  * @author usu21
  */
 public class GestionPrendas extends javax.swing.JInternalFrame {
-    
-    private ListaPrendas prendas;
 
-    
-    
-    
+    private ListaPrendas prendas;
+    private Prenda prendaEscogida;
+
+    public Prenda getPrendaEscogida() {
+        return prendaEscogida;
+    }
+
+    public void setPrendaEscogida(Prenda prendaEscogida) {
+        this.prendaEscogida = prendaEscogida;
+    }
+
     public ListaPrendas getPrendas() {
         return prendas;
     }
@@ -23,8 +30,6 @@ public class GestionPrendas extends javax.swing.JInternalFrame {
         this.prendas = prendas;
     }
 
-    
-    
     private PrendaJDBC prendaJDBC;
 
     /**
@@ -33,6 +38,7 @@ public class GestionPrendas extends javax.swing.JInternalFrame {
     public GestionPrendas() {
         prendaJDBC = new PrendaJDBC();
         prendas = prendaJDBC.selectAllPrendas();
+        prendaEscogida = new Prenda();
         initComponents();
     }
 
@@ -89,12 +95,24 @@ public class GestionPrendas extends javax.swing.JInternalFrame {
         columnBinding.setColumnName("Stock");
         columnBinding.setColumnClass(Integer.class);
         bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
+        jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${prendaEscogida}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Modificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Borrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,6 +139,30 @@ public class GestionPrendas extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (prendaEscogida.equals(new Prenda())) {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar una prenda.");
+        } else {
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (prendaEscogida.equals(new Prenda())) {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar una prenda.");
+        } else {
+            // borramos en la bbdd
+            if (prendaJDBC.borrarPrenda(prendaEscogida.getCodigo())) {
+                // borras la prenda de la lista que estás mostrando en la tabla
+                prendas.bajaPrenda(prendaEscogida);
+                JOptionPane.showMessageDialog(this, "Prenda dada de baja.");
+                //dispose();
+            } else {
+                // msg error no se ha borrado la prenda
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

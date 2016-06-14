@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/usu21/Documents/NetBeansProjects/MuylgualBoutiqueJDBC/src/vista/GestionPrendas.java</file>
-            <file>file:/C:/Users/usu21/Documents/NetBeansProjects/MuylgualBoutiqueJDBC/src/modelo/ListaPrendas.java</file>
-            <file>file:/C:/Users/usu21/Documents/NetBeansProjects/MuylgualBoutiqueJDBC/src/vista/AltaPrenda.java</file>
-            <file>file:/C:/Users/usu21/Documents/NetBeansProjects/MuylgualBoutiqueJDBC/src/muylgualboutiquejdbc/MuylgualBoutiqueJDBC.java</file>
-            <file>file:/C:/Users/usu21/Documents/NetBeansProjects/MuylgualBoutiqueJDBC/src/vista/MenuPrincipal.java</file>
-            <file>file:/C:/Users/usu21/Documents/NetBeansProjects/MuylgualBoutiqueJDBC/src/dao/PrendaJDBC.java</file>
-            <file>file:/C:/Users/usu21/Documents/NetBeansProjects/MuylgualBoutiqueJDBC/src/modelo/Prenda.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
