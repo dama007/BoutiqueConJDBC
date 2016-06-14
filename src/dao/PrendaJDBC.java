@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import modelo.ListaPrendas;
 import modelo.Prenda;
 
@@ -147,5 +148,30 @@ public class PrendaJDBC {
         } else {
             return false;
         }
-    }   
+    } 
+    
+    
+    
+    
+    public ArrayList<String> seleccionarColores() {
+        ArrayList<String> colores = new ArrayList<>();
+        conectar();
+        if (conexion != null) {
+            try {
+                String query = "select distinct color from prendas order by color";
+                Statement st = conexion.createStatement();
+                ResultSet rs = st.executeQuery(query);
+                while (rs.next()) {
+                    colores.add(rs.getString(1));
+                }
+                rs.close();
+                st.close();
+            } catch (SQLException ex) {
+                System.out.println("Hay un fallo" + ex.getMessage());
+            } finally {
+                desconectar();
+            }
+        }
+        return colores;
+    }
 }

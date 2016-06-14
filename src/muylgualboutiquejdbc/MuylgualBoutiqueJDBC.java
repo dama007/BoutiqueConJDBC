@@ -1,6 +1,7 @@
 
 package muylgualboutiquejdbc;
 
+import dao.PrendaJDBC;
 import vista.MenuPrincipal;
 
 /**
@@ -8,6 +9,8 @@ import vista.MenuPrincipal;
  * @author usu21
  */
 public class MuylgualBoutiqueJDBC {
+    
+    public static PrendaJDBC prendaJDBC;
 
     /**
      * @param args the command line arguments
