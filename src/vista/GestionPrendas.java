@@ -153,9 +153,9 @@ public class GestionPrendas extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debes seleccionar una prenda.");
         } else {
             // borramos en la bbdd
-            if (prendaJDBC.borrarPrenda(prendaEscogida.getCodigo())) {
+            if (prendaJDBC.bajaPrenda(prendaEscogida.getCodigo())) {
                 // borras la prenda de la lista que estás mostrando en la tabla
-                prendas.bajaPrenda(prendaEscogida);
+                prendaJDBC.bajaPrenda(prendaEscogida.getCodigo());
                 JOptionPane.showMessageDialog(this, "Prenda dada de baja.");
                 //dispose();
             } else {

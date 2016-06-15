@@ -12,15 +12,18 @@ import static muylgualboutiquejdbc.MuylgualBoutiqueJDBC.prendaJDBC;
  */
 public class EscogerColor extends javax.swing.JDialog {
     
-    private ArrayList<String> color;
+    private ArrayList<String> colores;
 
-    public ArrayList<String> getColor() {
-        return color;
+    
+    
+    public ArrayList<String> getColores() {
+        return colores;
     }
 
-    public void setColor(ArrayList<String> color) {
-        this.color = color;
+    public void setColores(ArrayList<String> colores) {
+        this.colores = colores;
     }
+
 
 
 
@@ -30,9 +33,9 @@ public class EscogerColor extends javax.swing.JDialog {
     public EscogerColor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
-        color = prendaJDBC.seleccionarColores();
-        color.add("---Escoge un color---");
-        Collections.sort(color);
+        colores = prendaJDBC.seleccionarColores();
+        colores.add("---Escoge un color---");
+        Collections.sort(colores);
         initComponents();
     }
 
@@ -44,6 +47,7 @@ public class EscogerColor extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jComboBox1 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
@@ -52,6 +56,10 @@ public class EscogerColor extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---Escoge un color---", "azul", "verde", "rojo", "amarillo", "gris", "blanco", "negro" }));
+
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${colores}");
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jComboBox1);
+        bindingGroup.addBinding(jComboBoxBinding);
 
         jButton1.setText("Escoge un color");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -94,18 +102,20 @@ public class EscogerColor extends javax.swing.JDialog {
                 .addComponent(jButton2))
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String color = "";
-        //color = (String) jComboBox1.getSelectedItem();
+        color = (String) jComboBox1.getSelectedItem();
         if (color.isEmpty() || jComboBox1.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Debes escoger un cololr");
+            JOptionPane.showMessageDialog(this, "Escoge un color, por favor");
         } else {
-            PrendasPorColor ppc = new PrendasPorColor(this, true, color);
-            ppc.setLocationRelativeTo(null);
-            ppc.setVisible(true);
+            PrendasPorColor pc = new PrendasPorColor(null, true, color);
+            pc.setLocationRelativeTo(null);
+            pc.setVisible(true);
             dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -114,53 +124,12 @@ public class EscogerColor extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EscogerColor.class.getName
-            java.util.logging.Logger.getLogger(EscogerColor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EscogerColor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EscogerColor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EscogerColor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                EscogerColor dialog = new EscogerColor(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

@@ -79,31 +79,84 @@ public class PrendaJDBC {
     }
     
     
-    private void conectar() {
-        try {
-            String url = "jdbc:mysql://localhost:3306/muylgualboutique";
-            String usr = "root";
-            String password = "jeveris";
-            conexion = DriverManager.getConnection(url, usr, password);
-        } catch (SQLException ex) {
-            System.out.println("Error al conectar" + ex.getMessage());
+    public double valoracionCostes() {
+        double valoracion = 0;
+        conectar();
+        if (conexion != null) {
+            try {
+                String query = "select sum(stock * coste) as valoracion from prenda";
+                Statement st = conexion.createStatement();
+                ResultSet rs = st.executeQuery(query);
+                if (rs.next()) {
+                    valoracion = rs.getDouble(1);
+                }
+                rs.close();
+                st.close();
+            } catch (SQLException ex) {
+                System.out.println("Hay fallo" + ex.getMessage());
+            } finally {
+                desconectar();
+            }
         }
+        return valoracion;
     }
     
     
-    
-    private void desconectar() {
-        try {
-            conexion.close();
-        } catch (SQLException ex) {
-            System.out.println("Error al desconectar" + ex.getMessage());
-            conexion = null;
+    public int totalStock() {
+        int contador = 0;
+        conectar();
+        if (conexion != null) {
+            try {
+                String query = "select sum(stock) as stockTotal from prenda";
+                Statement st = conexion.createStatement();
+                ResultSet rs = st.executeQuery(query);
+                if (rs.next()) {
+                    contador = rs.getInt("stockTotal");
+                }
+                rs.close();
+                st.close();
+            } catch (SQLException ex) {
+                System.out.println("Ha occurido un fallo" + ex.getMessage());
+            } finally {
+                desconectar();
+            }
         }
+        return contador;
     }
     
     
+    public Prenda seleccionarPrenda(String codigo){
+        conectar();
+        Prenda pe=new Prenda();
+        if (conexion !=null){
+            try {
+                String query ="select * from prenda where codigo='" + codigo + "'";
+                Statement st=conexion.createStatement();
+                ResultSet rs=st.executeQuery(query);
+                while (rs.next()){
+                    
+                    pe.setCodigo(rs.getString("codigo"));  
+                    pe.setDescripcion(rs.getString("descripcion"));
+                    pe.setCoste(rs.getDouble("coste"));
+                    pe.setColor(rs.getString("color"));
+                    pe.setTalla(rs.getString("talla"));
+                    pe.setPvp(rs.getDouble("pvp"));
+                    pe.setStock(rs.getInt("stock"));
+                }
+                rs.close();
+                st.close();
+            } catch (SQLException ex) {
+                System.out.println("Error en la consulta "+ex.getMessage());
+            }finally{
+                desconectar();
+            }
+        }
+        return pe;
+    }
     
-    public boolean borrarPrenda(String codigo) {
+    
+    public boolean bajaPrenda(String codigo) {
+        boolean ok = false;
         conectar();
         if (conexion != null) {
             
@@ -112,7 +165,7 @@ public class PrendaJDBC {
                 Statement st = conexion.createStatement();
                 st.executeUpdate(delete);
                 st.close();
-                return true;
+                ok = true;
             } catch (SQLException ex) {
                 System.out.println("Error al borrar: " + ex.getLocalizedMessage());
             } finally {
@@ -120,7 +173,32 @@ public class PrendaJDBC {
             }
             
         }
-        return false;
+        return ok;
+    }
+    
+    
+    
+    public boolean modificarPrenda(Prenda p) {
+        boolean ok = false;
+        conectar();
+        if (conexion != null) {
+            try {
+                String query = "update prenda set descripcion='" + p.getDescripcion() +
+                        "', coste='" + p.getCoste() + "', color='" + p.getColor() +
+                        "', talla='" + p.getTalla() + "', pvp='" + p.getPvp() +
+                        "', stock='" + p.getStock() + " where codigo=" + p.getCodigo() + ";";
+                Statement st = conexion.createStatement();
+                st.executeQuery(query);
+                st.close();
+                ok = true;
+            } catch (SQLException ex) {
+                System.out.println("Hay un fallo" + ex.getMessage());
+            } finally {
+                desconectar();
+            }
+                    
+        }
+        return true;
     }
     
     
@@ -151,6 +229,57 @@ public class PrendaJDBC {
     } 
     
     
+    public boolean modificarStock(Prenda p) {
+        boolean ok = false;
+        conectar();
+        if (conexion != null) {
+            try {
+                String query = "update prenda set stock=" + p.getStock() + "where codigo=" + p.getCodigo() + ";";
+                Statement st = conexion.createStatement();
+                st.executeUpdate(query);
+                st.close();
+                ok = true;
+            } catch (SQLException ex){
+                System.out.println("Hay error" + ex.getMessage());
+            } finally {
+                desconectar();
+            }
+        }
+        return ok;
+    }
+    
+    
+    public ListaPrendas prendasColor(String color){
+        ListaPrendas ListaP=new ListaPrendas();
+        conectar();
+        if (conexion !=null){
+            try {
+                String query ="select * from prenda where color='" + color + "' order by descripcion, talla";
+                Statement st=conexion.createStatement();
+                ResultSet rs=st.executeQuery(query);
+                while (rs.next()){
+                    Prenda pe=new Prenda();
+                    pe.setCodigo(rs.getString("codigo"));  // =  rs.getString(1)
+                    pe.setDescripcion(rs.getString("descripcion"));
+                    pe.setCoste(rs.getDouble("coste"));
+                    pe.setColor(rs.getString("color"));
+                    pe.setTalla(rs.getString("talla"));                
+                    pe.setPvp(rs.getDouble("pvp"));
+                    pe.setStock(rs.getInt("stock"));
+                    ListaP.altaPrenda(pe);
+                }
+                rs.close();
+                st.close();
+            } catch (SQLException ex) {
+                System.out.println("Error en la consulta "+ex.getMessage());
+            }finally{
+                desconectar();
+            }
+        }
+        return ListaP;
+    }
+    
+    
     
     
     public ArrayList<String> seleccionarColores() {
@@ -158,7 +287,7 @@ public class PrendaJDBC {
         conectar();
         if (conexion != null) {
             try {
-                String query = "select distinct color from prendas order by color";
+                String query = "select distinct color from prenda order by color";
                 Statement st = conexion.createStatement();
                 ResultSet rs = st.executeQuery(query);
                 while (rs.next()) {
@@ -173,5 +302,54 @@ public class PrendaJDBC {
             }
         }
         return colores;
+    }
+    
+    
+    public int totalPrendas(){
+        int contador=0;
+        conectar();
+        if (conexion != null){
+            try {
+                String query = "select count(*) as total from prenda";
+                Statement st=conexion.createStatement();
+                ResultSet rs=st.executeQuery(query);
+                
+                if (rs.next()){
+                    contador = rs.getInt(1);
+                }
+                rs.close();
+                st.close();                
+            } catch (SQLException ex) {
+                System.out.println("Hay fallo" + ex.getMessage());
+            }finally{
+                desconectar();
+            }        
+        }
+        return contador;
+    }
+    
+    
+    
+    
+    private void conectar() {
+        try {
+            String url = "jdbc:mysql://localhost:3306/muylgualboutique";
+            String usr = "root";
+            String password = "tambacounda";
+            conexion = DriverManager.getConnection(url, usr, password);
+        } catch (SQLException ex) {
+            System.out.println("Error al conectar" + ex.getMessage());
+        }
+    }
+    
+    
+    
+    private void desconectar() {
+        try {
+            conexion.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al desconectar" + ex.getMessage());
+            conexion = null;
+        }
     }
 }
