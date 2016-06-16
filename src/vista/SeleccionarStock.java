@@ -1,4 +1,3 @@
-
 package vista;
 
 import javax.swing.JOptionPane;
@@ -11,8 +10,8 @@ import static muylgualboutiquejdbc.MuylgualBoutiqueJDBC.prendaJDBC;
  * @author kinky
  */
 public class SeleccionarStock extends javax.swing.JDialog {
-    
-    private ListaPrendas prendas;   
+
+    private ListaPrendas prendas;
     private Prenda prendaEscogida;
 
     public Prenda getPrendaEscogida() {
@@ -23,7 +22,6 @@ public class SeleccionarStock extends javax.swing.JDialog {
         this.prendaEscogida = prendaEscogida;
     }
 
-
     public ListaPrendas getPrendas() {
         return prendas;
     }
@@ -32,8 +30,6 @@ public class SeleccionarStock extends javax.swing.JDialog {
         this.prendas = prendas;
     }
 
-
-    
     public SeleccionarStock(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         prendas = prendaJDBC.selectAllPrendas();
@@ -41,7 +37,6 @@ public class SeleccionarStock extends javax.swing.JDialog {
         initComponents();
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -123,54 +118,55 @@ public class SeleccionarStock extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       if (prendaEscogida.equals(new Prenda())) {
+        if (jComboBox1.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(this, "Debes seleccionar una prenda.");
         } else {
             String respuesta = JOptionPane.showInputDialog("Stock para añadir.");
             try {
-                int añadir = Integer.parseInt(respuesta);
-                int stock = prendaEscogida.getStock() + añadir;
+                int anadir = Integer.parseInt(respuesta);
+                int stock = prendaEscogida.getStock() + anadir;
                 if (stock <= 0) {
-                  JOptionPane.showMessageDialog(this, "Stock incorrecto.");
-                } else if (añadir <= 0) {
+                    JOptionPane.showMessageDialog(this, "Stock incorrecto.");
+                } else if (anadir <= 0) {
                     JOptionPane.showMessageDialog(this, "Operación inválida.");
                 } else {
                     prendaEscogida.setStock(stock);
+                    prendaJDBC.modificarPrenda(prendaEscogida);
                     JOptionPane.showMessageDialog(this, "Stock añadido.");
                     dispose();
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Debes introducir un número.");
-            } 
-            
+            }
+
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       if (prendaEscogida.equals(new Prenda())) {
+        if (prendaEscogida.equals(new Prenda())) {
             JOptionPane.showMessageDialog(this, "Debes seleccionar una prenda.");
         } else {
             String respuesta = JOptionPane.showInputDialog("Stock para quitar.");
             try {
                 int cantidad = Integer.parseInt(respuesta);
                 int stock = prendaEscogida.getStock() - cantidad;
-                if (stock < 1 ) {
-                  JOptionPane.showMessageDialog(this, "El stock está roto.");
+                if (stock < 1) {
+                    JOptionPane.showMessageDialog(this, "El stock está roto.");
                 } else if (cantidad <= 0 || cantidad > prendaEscogida.getStock()) {
                     JOptionPane.showMessageDialog(this, "Operación inválida.");
                 } else {
                     prendaEscogida.setStock(stock);
+                    prendaJDBC.modificarStock(prendaEscogida);
                     JOptionPane.showMessageDialog(this, "Stock retirado.");
                     dispose();
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Debes introducir un número.");
-            } 
-            
-        } 
+            }
+
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;

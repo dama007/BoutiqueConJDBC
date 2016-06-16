@@ -3,6 +3,8 @@ package vista;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JOptionPane;
+import static muylgualboutiquejdbc.MuylgualBoutiqueJDBC.prendaJDBC;
 
 /**
  *
@@ -91,7 +93,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem7);
 
-        jMenuItem1.setText("Prendas Totales");
+        jMenuItem1.setText("Géneros de prendas");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -172,15 +174,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        ValoracionStocks vs = new ValoracionStocks(this, true);
-        vs.setLocationRelativeTo(null);
-        vs.setVisible(true);
+
+        JOptionPane.showMessageDialog(this, "El Valor del inventario total es: " + prendaJDBC.valoracionCostes() + 
+                " €.");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        TotalPrendas tp = new TotalPrendas(this, true);
-        tp.setLocationRelativeTo(null);
-        tp.setVisible(true);
+        JOptionPane.showMessageDialog(this, "Actualmente disponemos de: " + prendaJDBC.totalPrendas()+ " modelos de prendas");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed

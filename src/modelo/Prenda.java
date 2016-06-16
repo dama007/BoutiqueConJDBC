@@ -18,11 +18,18 @@ public class Prenda {
     private double pvp;
     private int stock;
 
+    
+    
     public Prenda() {
         codigo = "";
         descripcion = "";
         color = "";
         talla = "";
+    }
+
+    @Override
+    public String toString() {
+        return codigo + ", " + descripcion + ", " + stock;
     }
     
     

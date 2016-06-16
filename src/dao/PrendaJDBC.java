@@ -177,18 +177,17 @@ public class PrendaJDBC {
     }
     
     
-    
     public boolean modificarPrenda(Prenda p) {
         boolean ok = false;
         conectar();
         if (conexion != null) {
             try {
                 String query = "update prenda set descripcion='" + p.getDescripcion() +
-                        "', coste='" + p.getCoste() + "', color='" + p.getColor() +
-                        "', talla='" + p.getTalla() + "', pvp='" + p.getPvp() +
-                        "', stock='" + p.getStock() + " where codigo=" + p.getCodigo() + ";";
+                        "', coste=" + p.getCoste() + ", color='" + p.getColor() +
+                        "', talla='" + p.getTalla() + "', pvp=" + p.getPvp() +
+                        ", stock=" + p.getStock() + " where codigo='" + p.getCodigo() + "';";
                 Statement st = conexion.createStatement();
-                st.executeQuery(query);
+                st.executeUpdate(query);
                 st.close();
                 ok = true;
             } catch (SQLException ex) {
@@ -196,7 +195,6 @@ public class PrendaJDBC {
             } finally {
                 desconectar();
             }
-                    
         }
         return true;
     }
