@@ -17,6 +17,7 @@ public class MuylgualBoutiqueJDBC {
      */
     public static void main(String[] args) {
         
+        prendaJDBC = new PrendaJDBC();
         
         MenuPrincipal menuPrincipal = new MenuPrincipal();
         menuPrincipal.setVisible(true);

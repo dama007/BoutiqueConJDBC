@@ -335,7 +335,7 @@ public class PrendaJDBC {
         try {
             String url = "jdbc:mysql://localhost:3306/muylgualboutique";
             String usr = "root";
-            String password = "tambacounda";
+            String password = "jeveris";
             conexion = DriverManager.getConnection(url, usr, password);
         } catch (SQLException ex) {
             System.out.println("Error al conectar" + ex.getMessage());

@@ -28,7 +28,7 @@ public class AltaPrenda extends javax.swing.JDialog {
     
     public AltaPrenda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        prendaJDBC = new PrendaJDBC();
+//        prendaJDBC = new PrendaJDBC();
         prenda = new Prenda();
         initComponents();
     }
